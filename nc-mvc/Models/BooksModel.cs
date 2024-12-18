@@ -12,10 +12,11 @@ namespace nc_mvc.Models
         }
         internal Book? FetchBook(int id)
         {
-            Book? book = FetchAllBooks()?.FirstOrDefault(author => author.Id == id);
+            Book? book = FetchAllBooks()?.FirstOrDefault(book => book.Id == id);
             return book;
 
         }
+
 
         internal Book? AddBook(Book book)
         {
@@ -45,7 +46,7 @@ namespace nc_mvc.Models
                 deleteCount++;
                 status = $"{deleteCount} Records Deleted";
             });
-            Console.WriteLine(books.Count);
+
             File.WriteAllText("./Resources/Books.json", JsonSerializer.Serialize(books));
 
             return status;

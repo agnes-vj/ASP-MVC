@@ -25,7 +25,7 @@ public class BooksController : Controller
     {
         Book book = _booksService.GetBook(id);
         if (book != null)
-             return Ok(book);
+            return Ok(book);
         return NotFound("Book Not Found");
     }
 
@@ -38,10 +38,10 @@ public class BooksController : Controller
             return Created();
 
         }
-        return NotFound("Book is not Added, Author info not found for this book");        
+        return NotFound("Book is not Added, Author info not found for this book");
     }
 
-    [HttpDelete("{id}")]    
+    [HttpDelete("{id}")]
     public ActionResult<string> DeleteBook(int id)
     {
         string status = _booksService.DeleteBook(id);
@@ -50,5 +50,15 @@ public class BooksController : Controller
             return NotFound($"Book with id {id} Not Found");
         }
         return NoContent();
-    }        
+    }
+    [HttpGet("author/{authorName}")]
+    public ActionResult<List<Book>> GetBooksByAuthor(string authorName)
+    {
+        List<Book> booksByAuthor = _booksService.GetAllBooksByAuthor(authorName);
+        if (booksByAuthor.Count > 0)
+        {
+            return Ok(booksByAuthor);
+        }
+        return NotFound($"No Book Found For author: {authorName}");
+    }
 }

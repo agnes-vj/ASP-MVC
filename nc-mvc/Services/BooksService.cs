@@ -35,5 +35,11 @@ namespace nc_mvc.Services
         {
             return _booksModel.DeleteBook(bookId);
         }
+
+        internal List<Book> GetAllBooksByAuthor(string authorName)
+        {
+            List<Book>? books = new BooksModel().FetchAllBooks()?.Where(book => book.Author == authorName).ToList();
+            return books;
+        }
     }
 }
