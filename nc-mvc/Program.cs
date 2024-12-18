@@ -10,8 +10,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers();
+       
         builder.Services.AddScoped<AuthorsService>();
         builder.Services.AddScoped<AuthorsModel>();
+
+        builder.Services.AddScoped<BooksService>();
+        builder.Services.AddScoped<BooksModel>();
 
         var app = builder.Build();
 

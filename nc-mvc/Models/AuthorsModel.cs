@@ -17,6 +17,12 @@ public class AuthorsModel
         Author? author = FetchAllAuthors()?.FirstOrDefault(author => author.Id == id);
         return author;
     }
+
+    internal Author? FetchAuthorByName(string authorName)
+    {
+        Author? author = FetchAllAuthors()?.FirstOrDefault(author => author.Name == authorName);
+        return author;
+    }
     internal Author? AddAuthor(Author author)
     {
         List<Author>? authorList = FetchAllAuthors();
@@ -26,11 +32,20 @@ public class AuthorsModel
         File.WriteAllText("./Resources/Authors.json", JsonSerializer.Serialize(authorList));
         return author;
     }
-    internal void DeleteAuthor(int authorId)
+    internal string DeleteAuthor(int authorId)
     {
         List<Author>? authorList = FetchAllAuthors();
-        authorList.FindAll(author => author.Id == authorId).ForEach(authorToDelte => authorList.Remove(authorToDelte));
+        string status = "Not Found";
+        int deleteCount = 0;
+        authorList.FindAll(author => author.Id == authorId).ForEach(authorToDelte =>
+        {
+            authorList.Remove(authorToDelte);
+            deleteCount++;
+            status = $"{deleteCount} Records Deleted";
+        });
         File.WriteAllText("./Resources/Authors.json", JsonSerializer.Serialize(authorList));
+
+        return status;
     }
 
 }

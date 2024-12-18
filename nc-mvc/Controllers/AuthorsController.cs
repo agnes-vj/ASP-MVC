@@ -21,7 +21,7 @@ public class AuthorsController : Controller
         return Ok(authorList);
     }
 
-    [HttpGet("{id}")]  // "/"
+    [HttpGet("{id}")] 
 
     public ActionResult<Author> GetAuthor(int id)
     {
@@ -34,7 +34,7 @@ public class AuthorsController : Controller
     }
 
 
-    [HttpPost]  // "/"
+    [HttpPost]  
 
     public ActionResult<Author> AddAuthor(Author author)
     {
@@ -43,11 +43,14 @@ public class AuthorsController : Controller
         return Created("",author);
     }
 
-    [HttpDelete("{id}")]  // "/"
-
-    public ActionResult<Author> DeleteAuthor(int id)
+    [HttpDelete("{id}")]  
+    public IActionResult DeleteAuthor(int id)
     {
-        _authorsService.DeleteAuthor(id);
-        return NoContent();
+        string status = _authorsService.DeleteAuthor(id);
+        if (status == "Not Found")
+        {
+            return NotFound($"Author with id {id} Not Found");
+        }
+        return Ok(status);
     }
 }

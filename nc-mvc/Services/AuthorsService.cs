@@ -24,8 +24,8 @@ public class AuthorsService
     {
         return _authorsModel.AddAuthor(author);
     }
-    public void DeleteAuthor(int authorId)
+    public string DeleteAuthor(int authorId)
     {
-        _authorsModel.DeleteAuthor(authorId);
+        return _authorsModel.DeleteAuthor(authorId);
     }
 }
