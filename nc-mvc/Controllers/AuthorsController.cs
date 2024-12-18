@@ -4,7 +4,7 @@ using nc_mvc.Services;
 namespace nc_mvc.Controllers;
 
 [ApiController]
-[Route("/[controller]")]  // "/authors/..."
+[Route("/api/[controller]")]  // "/authors/..."
 public class AuthorsController : Controller
 {
     private readonly AuthorsService _authorsService;
@@ -19,5 +19,17 @@ public class AuthorsController : Controller
     {
         List<Author>? authorList = _authorsService.GetAllAuthors();
         return Ok(authorList);
+    }
+
+    [HttpGet("{id}")]  // "/"
+
+    public ActionResult<Author> GetAuthor(int id)
+    {
+        Author? author = _authorsService.GetAuthor(id);
+        if (author == null)
+        {
+            return NotFound($"No Author Found in this Id: {id}");
+        }
+        return Ok(author);
     }
 }

@@ -10,4 +10,10 @@ public class AuthorsModel
         List<Author>? authorsList = JsonSerializer.Deserialize<List<Author>>(authorsJsonString);
         return authorsList;
     }
+
+    internal Author? FetchAuthor(int id)
+    {
+        Author? author = FetchAllAuthors()?.FirstOrDefault(author => author.Id == id);
+        return author;
+    }
 }

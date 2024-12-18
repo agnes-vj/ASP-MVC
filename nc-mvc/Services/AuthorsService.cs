@@ -15,4 +15,8 @@ public class AuthorsService
     {
         return _authorsModel.FetchAllAuthors();
     }
+    public Author? GetAuthor(int id)
+    {
+        return _authorsModel.FetchAuthor(id);
+    }
 }
