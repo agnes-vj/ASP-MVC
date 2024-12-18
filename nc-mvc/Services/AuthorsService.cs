@@ -19,4 +19,9 @@ public class AuthorsService
     {
         return _authorsModel.FetchAuthor(id);
     }
+
+    public Author? AddAuthor(Author author)
+    {
+        return _authorsModel.AddAuthor(author);
+    }
 }

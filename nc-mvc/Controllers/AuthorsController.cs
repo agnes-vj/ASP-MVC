@@ -32,4 +32,14 @@ public class AuthorsController : Controller
         }
         return Ok(author);
     }
+
+
+    [HttpPost]  // "/"
+
+    public ActionResult<Author> AddAuthor(Author author)
+    {
+        Author? newAuthor = _authorsService.AddAuthor(author);
+       
+        return Created("",author);
+    }
 }

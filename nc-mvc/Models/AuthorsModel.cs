@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.Json;
 
 namespace nc_mvc.Models;
 
@@ -16,4 +17,14 @@ public class AuthorsModel
         Author? author = FetchAllAuthors()?.FirstOrDefault(author => author.Id == id);
         return author;
     }
+    internal Author? AddAuthor(Author author)
+    {
+        List<Author>? authorList = FetchAllAuthors();
+        int newId = authorList!.OrderByDescending(author => author.Id).FirstOrDefault()!.Id + 1;
+        author.Id = newId;
+        authorList.Add(author);
+        File.WriteAllText("./Resources/Authors.json", JsonSerializer.Serialize(authorList));
+        return author;
+    }
+
 }
