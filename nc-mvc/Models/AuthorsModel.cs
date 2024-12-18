@@ -26,5 +26,11 @@ public class AuthorsModel
         File.WriteAllText("./Resources/Authors.json", JsonSerializer.Serialize(authorList));
         return author;
     }
+    internal void DeleteAuthor(int authorId)
+    {
+        List<Author>? authorList = FetchAllAuthors();
+        authorList.FindAll(author => author.Id == authorId).ForEach(authorToDelte => authorList.Remove(authorToDelte));
+        File.WriteAllText("./Resources/Authors.json", JsonSerializer.Serialize(authorList));
+    }
 
 }

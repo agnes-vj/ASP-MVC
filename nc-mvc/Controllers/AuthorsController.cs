@@ -42,4 +42,12 @@ public class AuthorsController : Controller
        
         return Created("",author);
     }
+
+    [HttpDelete("{id}")]  // "/"
+
+    public ActionResult<Author> DeleteAuthor(int id)
+    {
+        _authorsService.DeleteAuthor(id);
+        return NoContent();
+    }
 }
